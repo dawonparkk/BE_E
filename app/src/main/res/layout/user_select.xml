@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:id="@+id/theme"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:gravity="center">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/theme1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="#여행테마를 고르세요."
+        android:textSize="70px"
+        android:textColor="#9A68F3"
+        android:fontFamily="@font/nanumbarunpenbold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/theme" />
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/spinner1"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:textSize="100px"
+        android:textColor="#9A68F3"
+        android:fontFamily="@font/nanumbarunpenregular"
+        app:layout_constraintTop_toBottomOf="@+id/theme1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/region"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/theme"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:gravity="center">
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/regionCi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="#지역을 선택하세요."
+            android:textSize="70px"
+            android:textColor="#9A68F3"
+            android:fontFamily="@font/nanumbarunpenbold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/region" />
+
+        <LinearLayout
+            android:id="@+id/regionC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spinner2"
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:textSize="100px"
+                android:textColor="#9A68F3"
+                android:fontFamily="@font/nanumbarunpenregular"
+                app:layout_constraintTop_toBottomOf="@+id/regionCi"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@+id/spinner3"/>
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spinner3"
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:textSize="100px"
+                android:textColor="#9A68F3"
+                android:fontFamily="@font/nanumbarunpenregular"
+                app:layout_constraintTop_toBottomOf="@+id/regionCi"
+                app:layout_constraintLeft_toLeftOf="@id/spinner2"
+                app:layout_constraintRight_toRightOf="parent"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/car"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/regionCi"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:gravity="center">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/carchoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#차종을 성택하세요."
+                android:textSize="70px"
+                android:textColor="#9A68F3"
+                android:fontFamily="@font/nanumbarunpenbold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/car" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spinner4"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:textSize="100px"
+                android:textColor="#9A68F3"
+                android:fontFamily="@font/nanumbarunpenregular"
+                app:layout_constraintTop_toBottomOf="@+id/carchoice"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
