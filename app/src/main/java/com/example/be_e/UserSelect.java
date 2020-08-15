@@ -1,17 +1,21 @@
 package com.example.be_e;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class UserSelect extends AppCompatActivity {
     ArrayAdapter<CharSequence> adspin1, adspin2, adspin3, adspin4;
     String choice_do = "";
     String choice_se = "";
-    String choice_car = "";
+    String choice_theme = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +29,17 @@ public class UserSelect extends AppCompatActivity {
         adspin1 = ArrayAdapter.createFromResource(this, R.array.spinner_theme, android.R.layout.simple_spinner_dropdown_item);
         adspin1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin1.setAdapter(adspin1);
+        spin1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                choice_theme = adspin1.getItem(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         adspin2 = ArrayAdapter.createFromResource(this, R.array.spinner_do, android.R.layout.simple_spinner_dropdown_item);
         adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -287,8 +302,8 @@ public class UserSelect extends AppCompatActivity {
 
                         }
                     });
-                } else if (adspin2.getItem(i).equals("제주특별자치도")) {
-                    choice_do = "제주특별자치도";
+                } else if (adspin2.getItem(i).equals("세종특별자치시")) {
+                    choice_do = "세종특별자치시";
                     adspin3 = ArrayAdapter.createFromResource(UserSelect.this, R.array.spinner_do_jaeju, android.R.layout.simple_spinner_dropdown_item);
                     adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spin3.setAdapter(adspin3);
@@ -316,5 +331,17 @@ public class UserSelect extends AppCompatActivity {
         adspin4 = ArrayAdapter.createFromResource(this, R.array.spinner_car, android.R.layout.simple_spinner_dropdown_item);
         adspin4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin4.setAdapter(adspin4);
+
+        Button buttonfind = (Button)findViewById(R.id.buttonfind);
+        buttonfind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("choice_se", choice_se);
+                intent.putExtra("choice_do", choice_do);
+                intent.putExtra("choice_theme", choice_theme);
+                startActivity(intent);
+            }
+        });
     }
 }

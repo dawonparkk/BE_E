@@ -13,7 +13,7 @@
         <item>인천광역시</item>
         <item>전라남도</item>
         <item>전라북도</item>
-        <item>제주특별자치도</item>
+        <item>세종특별자치시</item>
         <item>충청남도</item>
         <item>충청북도</item>
         <item>대전광역시</item>
@@ -278,8 +278,7 @@
     </string-array>
 
     <string-array name="spinner_do_jaeju">
-        <item>서귀포시</item>
-        <item>제주시</item>
+        <item>세종특별자치시</item>
     </string-array>
 
     <string-array name="spinner_car">
@@ -287,13 +286,11 @@
     </string-array>
 
     <string-array name="spinner_theme">
-        <item>문화</item>
-        <item>자연</item>
-        <item>공공장소</item>
-        <item>드라이브</item>
-        <item>테마파크</item>
-        <item>데이트명소</item>
-        <item>스포츠</item>
-        <item>음식</item>
+        <item>문화유적코스</item>
+        <item>자연힐링코스</item>
+        <item>드라이브코스</item>
+        <item>해안코스</item>
+        <item>데이트코스</item>
+        <item>레포츠</item>
     </string-array>
 </resources>

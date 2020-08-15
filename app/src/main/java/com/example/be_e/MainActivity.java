@@ -4,7 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPoint;
@@ -13,7 +15,6 @@ import com.skt.Tmap.TMapView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
         markerItem1.setName("SKT타워"); // 마커의 타이틀 지정
         tMapView.addMarkerItem("markerItem1", markerItem1); // 지도에 마커 추가
         tMapView.setCenterPoint( 126.985302, 37.570841 );
+
+        String choice_do = getIntent().getStringExtra("choice_do");
+        String choice_se = getIntent().getStringExtra("choice_se");
+        String choice_theme = getIntent().getStringExtra("choice_theme");
 
         tMapView.setSKTMapApiKey( "l7xxaf5e2f6967094cf39c3ff1fdda6f3af6");
         linearLayoutTmap.addView( tMapView );
