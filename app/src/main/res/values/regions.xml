@@ -229,7 +229,16 @@
     </string-array>
 
     <string-array name="spinner_car">
-        <item>차종이름</item>
+        <item>쏘울 Booster</item>
+        <item>니로 EV</item>
+        <item>아이오닉</item>
+        <item>코나EV</item>
+        <item>SM3 ZE</item>
+        <item>볼트</item>
+        <item>i3</item>
+        <item>리프</item>
+        <item>모델S</item>
+        <item>테슬라 모델3</item>
     </string-array>
 
     <string-array name="spinner_theme">
@@ -240,4 +249,6 @@
         <item>데이트코스</item>
         <item>레포츠</item>
     </string-array>
+
+
 </resources>

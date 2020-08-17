@@ -5,10 +5,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.skt.Tmap.TMapCircle;
 import com.skt.Tmap.TMapData;
 import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPoint;
@@ -25,18 +27,68 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     final ArrayList<TripPathInfo> tripPaths = new ArrayList<>();
+    final ArrayList<EVListInfo> evListInfos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // 사용자 선택한 도시와 테마 가져오기
+        String choice_se = getIntent().getStringExtra("choice_se");
+        String choice_theme = getIntent().getStringExtra("choice_theme");
+
+        // TMapView 띄우기
         LinearLayout linearLayoutTmap = (LinearLayout)findViewById(R.id.linearLayoutTmap);
         TMapView tMapView = new TMapView(this);
         tMapView.setZoomLevel(11);
 
-        String json = getJsonString();
+        // 전기차 충전소 띄우기
+        // 전기차 충전소 Json 파일 읽기
+        String jsonEV = getJsonString("evlist.json");
 
+        // 전기차 충전소 Json 파싱
+        try {
+            JSONObject jsonEVObject = new JSONObject(jsonEV);
+            JSONArray EVArray = jsonEVObject.getJSONArray("evs");
+
+            for(int i = 0; i < EVArray.length(); i++) {
+                JSONObject EVObject = EVArray.getJSONObject(i);
+
+                EVListInfo evListInfo = new EVListInfo();
+
+                evListInfo.setName(EVObject.getString("충전소"));
+                evListInfo.setLoce(EVObject.getString("이름"));
+                evListInfo.setLati(EVObject.getDouble("Y"));
+                evListInfo.setLongti(EVObject.getDouble("X"));
+
+                evListInfos.add(i, evListInfo);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // 주변 충전소들 마커 띄우기
+        for (int i = 0; i < evListInfos.size(); i++) {
+            if ( choice_se.equals(evListInfos.get(i).getLoce() )) {
+                TMapPoint evPoint = new TMapPoint(evListInfos.get(i).getLati(), evListInfos.get(i).getLongti());
+
+                TMapCircle tMapCircle = new TMapCircle();
+                tMapCircle.setCenterPoint(evPoint);
+                tMapCircle.setRadius(200);
+                tMapCircle.setCircleWidth(5);
+                tMapCircle.setLineColor(Color.BLUE);
+                tMapCircle.setAreaColor(Color.GRAY);
+                tMapCircle.setAreaAlpha(100);
+                tMapView.addTMapCircle("circle" + i, tMapCircle);
+            }
+        }
+
+        // 관광 경로 띄우기
+        // 관광 경로 Json 파일 읽기
+        String json = getJsonString("tripath.json");
+
+        // 관광 경로 Json 파싱
         try {
             JSONObject jsonObject = new JSONObject(json);
             JSONArray tripArray = jsonObject.getJSONArray("trippath");
@@ -50,27 +102,17 @@ public class MainActivity extends AppCompatActivity {
                 tripPathInfo.setTheme(tripObject.getString("CATEGORY"));
                 tripPathInfo.setLatitude(tripObject.getDouble("LATITUDE"));
                 tripPathInfo.setLongtitude(tripObject.getDouble("LONGTITUDE"));
-                tripPathInfo.setTrip1(tripObject.getString("1"));
-                tripPathInfo.setLa1(tripObject.getDouble("2"));
-                tripPathInfo.setLo1(tripObject.getDouble("3"));
-                tripPathInfo.setTrip2(tripObject.getString("4"));
-                tripPathInfo.setLa2(tripObject.getDouble("5"));
-                tripPathInfo.setLo2(tripObject.getDouble("6"));
-                tripPathInfo.setTrip3(tripObject.getString("7"));
-                tripPathInfo.setLa3(tripObject.getDouble("8"));
-                tripPathInfo.setLo3(tripObject.getDouble("9"));
 
+                ArrayList<String> trips = new ArrayList<>();
+                ArrayList<Double> locations = new ArrayList<>();
+                for (int j = 1; j < tripObject.length() - 5; j += 3) {
+                    trips.add(tripObject.getString(String.valueOf(j)));
+                    locations.add(tripObject.getDouble(String.valueOf(j + 1)));
+                    locations.add(tripObject.getDouble(String.valueOf(j + 2)));
+                }
 
-//                ArrayList<String> names = new ArrayList<>();
-//                ArrayList<Double> locations = new ArrayList<>();
-//                for (int j = 1; j < tripObject.length() - 5; j += 3) {
-//                    names.add(tripObject.getString(String.valueOf(i)));
-//                    locations.add(tripObject.getDouble(String.valueOf(i + 1)));
-//                    locations.add(tripObject.getDouble(String.valueOf(i + 2)));
-//                }
-//
-//                tripPathInfo.setTrips(names);
-//                tripPathInfo.setLocations(locations);
+                tripPathInfo.setTrips(trips);
+                tripPathInfo.setLocations(locations);
 
                 tripPaths.add(i, tripPathInfo);
             }
@@ -78,53 +120,40 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        String choice_se = getIntent().getStringExtra("choice_se");
-        String choice_theme = getIntent().getStringExtra("choice_theme");
-
+        // 관광 경로 마커 띄우기
         for (int i = 0; i < tripPaths.size(); i++) {
-            if ( (choice_se.equals(tripPaths.get(i).getName()) && (choice_theme.equals(tripPaths.get(i).getTheme())))) {
-                TMapPoint tMapPoint1 = new TMapPoint(tripPaths.get(i).getLa1(), tripPaths.get(i).getLo1());
-                TMapPoint tMapPoint2 = new TMapPoint(tripPaths.get(i).getLa2(), tripPaths.get(i).getLo2());
-                TMapPoint tMapPoint3 = new TMapPoint(tripPaths.get(i).getLa3(), tripPaths.get(i).getLo3());
-
-                TMapMarkerItem markerItem1 = new TMapMarkerItem();
-                TMapMarkerItem markerItem2 = new TMapMarkerItem();
-                TMapMarkerItem markerItem3 = new TMapMarkerItem();
-
-                markerItem1.setTMapPoint(tMapPoint1);
-                markerItem2.setTMapPoint(tMapPoint2);
-                markerItem3.setTMapPoint(tMapPoint3);
-
-                markerItem1.setName(tripPaths.get(i).getTrip1());
-                markerItem2.setName(tripPaths.get(i).getTrip2());
-                markerItem3.setName(tripPaths.get(i).getTrip3());
-
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.lomaker);
-
-                markerItem1.setIcon(bitmap);
-                markerItem2.setIcon(bitmap);
-                markerItem3.setIcon(bitmap);
-
-                tMapView.addMarkerItem("markerItem1", markerItem1);
-                tMapView.addMarkerItem("markerItem2", markerItem2);
-                tMapView.addMarkerItem("markerItem3", markerItem3);
+            if ((choice_se.equals(tripPaths.get(i).getName()) && (choice_theme.equals(tripPaths.get(i).getTheme())))) {
+                tMapView.setCenterPoint(tripPaths.get(i).getLongtitude(), tripPaths.get(i).getLatitude());
 
                 ArrayList<TMapPoint> alTMapPoint = new ArrayList<TMapPoint>();
-                alTMapPoint.add(tMapPoint1);
-                alTMapPoint.add(tMapPoint2);
-                alTMapPoint.add(tMapPoint3);
+                for (int j = 0; j < tripPaths.get(i).getTrips().size(); j++) {
+                    TMapPoint tmapPoint1 = new TMapPoint(tripPaths.get(i).getLocations().get(j * 2), tripPaths.get(i).getLocations().get(j * 2 + 1));
+                    alTMapPoint.add(tmapPoint1);
+                    TMapMarkerItem markerItem1 = new TMapMarkerItem();
+                    markerItem1.setTMapPoint(tmapPoint1);
+                    markerItem1.setName(tripPaths.get(i).getTrips().get(j));
+
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.lomaker);
+                    markerItem1.setIcon(bitmap);
+
+                    markerItem1.setCanShowCallout(true);
+                    markerItem1.setCalloutTitle(tripPaths.get(i).getTrips().get(j));
+                    markerItem1.setAutoCalloutVisible(true);
+                    markerItem1.setEnableClustering(false);
+
+                    tMapView.addMarkerItem("markeritem" + j, markerItem1);
+                }
 
                 TMapPolyLine tMapPolyLine = new TMapPolyLine();
                 tMapPolyLine.setLineColor(Color.BLUE);
                 tMapPolyLine.setLineWidth(2);
-                for( int j=0; j<alTMapPoint.size(); j++ ) {
-                    tMapPolyLine.addLinePoint( alTMapPoint.get(j) );
+                for (int k = 0; k < alTMapPoint.size(); k++) {
+                    tMapPolyLine.addLinePoint(alTMapPoint.get(k));
                 }
-                tMapView.addTMapPolyLine("Line1", tMapPolyLine);
+                tMapView.addTMapPolyLine("Line" + i, tMapPolyLine);
+            }
+        }
 
-
-
-                tMapView.setCenterPoint(tripPaths.get(i).getLongtitude(), tripPaths.get(i).getLatitude());
 
 //                try {
 //                    TMapPolyLine tMapPolyLine = new TMapData().findPathData(tMapPoint1, tMapPoint2);
@@ -136,8 +165,8 @@ public class MainActivity extends AppCompatActivity {
 //                }
 
 //                Toast.makeText(getApplicationContext(), tripPaths.get(i).getTrips().get(i), Toast.LENGTH_LONG).show();
-            }
-        }
+//            }
+//        }
 
 
 //        TMapPoint tMapPoint1 = new TMapPoint(37.786875, 128.884989); // SKT타워
@@ -162,12 +191,12 @@ public class MainActivity extends AppCompatActivity {
         linearLayoutTmap.addView( tMapView );
     }
 
-    private String getJsonString()
+    private String getJsonString(String jsonName)
     {
         String json = "";
 
         try {
-            InputStream is = getAssets().open("tripath.json");
+            InputStream is = getAssets().open(jsonName);
             int fileSize = is.available();
 
             byte[] buffer = new byte[fileSize];

@@ -7,59 +7,61 @@
 
     <LinearLayout
         android:id="@+id/theme"
-        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:gravity="center">
+        app:layout_constraintTop_toTopOf="parent">
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/theme1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="#여행테마를 고르세요."
-        android:textSize="70px"
-        android:textColor="#9A68F3"
-        android:fontFamily="@font/nanumbarunpenbold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/theme" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/theme1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanumbarunpenbold"
+            android:text="#여행테마를 고르세요."
+            android:textColor="#9A68F3"
+            android:textSize="70px"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/theme" />
 
-    <android.support.v7.widget.AppCompatSpinner
-        android:id="@+id/spinner1"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
-        android:textSize="100px"
-        android:textColor="#9A68F3"
-        android:fontFamily="@font/nanumbarunpenregular"
-        app:layout_constraintTop_toBottomOf="@+id/theme1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinner1"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:fontFamily="@font/nanumbarunpenregular"
+            android:textColor="#9A68F3"
+            android:textSize="100px"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/theme1" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/region"
-        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/theme"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:gravity="center">
+        app:layout_constraintTop_toBottomOf="@id/theme">
 
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/regionCi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="#지역을 선택하세요."
-            android:textSize="70px"
-            android:textColor="#9A68F3"
             android:fontFamily="@font/nanumbarunpenbold"
+            android:text="#지역을 선택하세요."
+            android:textColor="#9A68F3"
+            android:textSize="70px"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/region" />
@@ -68,52 +70,53 @@
             android:id="@+id/regionC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/spinner2"
                 android:layout_width="130dp"
                 android:layout_height="30dp"
-                android:textSize="100px"
-                android:textColor="#9A68F3"
                 android:fontFamily="@font/nanumbarunpenregular"
-                app:layout_constraintTop_toBottomOf="@+id/regionCi"
+                android:textColor="#9A68F3"
+                android:textSize="100px"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="@+id/spinner3"/>
+                app:layout_constraintRight_toRightOf="@+id/spinner3"
+                app:layout_constraintTop_toBottomOf="@+id/regionCi" />
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/spinner3"
                 android:layout_width="130dp"
                 android:layout_height="30dp"
-                android:textSize="100px"
-                android:textColor="#9A68F3"
                 android:fontFamily="@font/nanumbarunpenregular"
-                app:layout_constraintTop_toBottomOf="@+id/regionCi"
+                android:textColor="#9A68F3"
+                android:textSize="100px"
                 app:layout_constraintLeft_toLeftOf="@id/spinner2"
-                app:layout_constraintRight_toRightOf="parent"/>
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/regionCi" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/car"
-        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/region"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:gravity="center">
+        app:layout_constraintTop_toBottomOf="@+id/region">
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/carchoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="#차종을 성택하세요."
-            android:textSize="70px"
-            android:textColor="#9A68F3"
             android:fontFamily="@font/nanumbarunpenbold"
+            android:text="#차종을 성택하세요."
+            android:textColor="#9A68F3"
+            android:textSize="70px"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/car" />
@@ -122,24 +125,26 @@
             android:id="@+id/spinner4"
             android:layout_width="300dp"
             android:layout_height="30dp"
-            android:textSize="100px"
-            android:textColor="#9A68F3"
             android:fontFamily="@font/nanumbarunpenregular"
-            app:layout_constraintTop_toBottomOf="@+id/carchoice"
+            android:textColor="#9A68F3"
+            android:textSize="100px"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/carchoice" />
     </LinearLayout>
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/buttonfind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text = "길찾기"
-        android:textColor="#ffffff"
         android:background="#9A68F3"
-        app:layout_constraintTop_toBottomOf="@+id/car"
+        android:text="길찾기"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/car"
+        app:layout_constraintVertical_bias="0.625" />
 
 </android.support.constraint.ConstraintLayout>
