@@ -1,13 +1,16 @@
 package com.example.be_e;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.skt.Tmap.TMapCircle;
@@ -15,6 +18,7 @@ import com.skt.Tmap.TMapData;
 import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapPolyLine;
+import com.skt.Tmap.TMapTapi;
 import com.skt.Tmap.TMapView;
 
 import org.json.JSONArray;
@@ -24,6 +28,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     final ArrayList<TripPathInfo> tripPaths = new ArrayList<>();
@@ -37,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         // 사용자 선택한 도시와 테마 가져오기
         String choice_se = getIntent().getStringExtra("choice_se");
         String choice_theme = getIntent().getStringExtra("choice_theme");
+        final TextView textView = (TextView)findViewById(R.id.textinfo);
+        textView.setText(choice_se + "의 " + choice_theme);
 
         // TMapView 띄우기
         LinearLayout linearLayoutTmap = (LinearLayout)findViewById(R.id.linearLayoutTmap);
@@ -73,14 +80,27 @@ public class MainActivity extends AppCompatActivity {
             if ( choice_se.equals(evListInfos.get(i).getLoce() )) {
                 TMapPoint evPoint = new TMapPoint(evListInfos.get(i).getLati(), evListInfos.get(i).getLongti());
 
-                TMapCircle tMapCircle = new TMapCircle();
-                tMapCircle.setCenterPoint(evPoint);
-                tMapCircle.setRadius(200);
-                tMapCircle.setCircleWidth(5);
-                tMapCircle.setLineColor(Color.BLUE);
-                tMapCircle.setAreaColor(Color.GRAY);
-                tMapCircle.setAreaAlpha(100);
-                tMapView.addTMapCircle("circle" + i, tMapCircle);
+                TMapMarkerItem markerItem1 = new TMapMarkerItem();
+                markerItem1.setTMapPoint(evPoint);
+                markerItem1.setName(evListInfos.get(i).getName());
+
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mar);
+                markerItem1.setIcon(bitmap);
+
+                markerItem1.setCanShowCallout(true);
+                markerItem1.setCalloutTitle(evListInfos.get(i).getName());
+
+
+                tMapView.addMarkerItem("marker" + i, markerItem1);
+
+//                TMapCircle tMapCircle = new TMapCircle();
+//                tMapCircle.setCenterPoint(evPoint);
+//                tMapCircle.setRadius(200);
+//                tMapCircle.setCircleWidth(5);
+//                tMapCircle.setLineColor(Color.BLUE);
+//                tMapCircle.setAreaColor(Color.GRAY);
+//                tMapCircle.setAreaAlpha(100);
+//                tMapView.addTMapCircle("circle" + i, tMapCircle);
             }
         }
 
@@ -137,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                     markerItem1.setIcon(bitmap);
 
                     markerItem1.setCanShowCallout(true);
-                    markerItem1.setCalloutTitle(tripPaths.get(i).getTrips().get(j));
+                    markerItem1.setCalloutTitle(j + ":" + tripPaths.get(i).getTrips().get(j));
                     markerItem1.setAutoCalloutVisible(true);
                     markerItem1.setEnableClustering(false);
 
@@ -153,6 +173,32 @@ public class MainActivity extends AppCompatActivity {
                 tMapView.addTMapPolyLine("Line" + i, tMapPolyLine);
             }
         }
+
+        Button buttonmap = (Button)findViewById(R.id.buttonMap);
+        buttonmap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TMapTapi tMapTapi = new TMapTapi(getApplication());
+
+                HashMap pathInfo = new HashMap();
+                pathInfo.put("rGoName", "정동진레일");
+                pathInfo.put("rGoX", "129.033067");
+                pathInfo.put("rGoY", "37.691351");
+
+                pathInfo.put("rStName", "경포대");
+                pathInfo.put("rStX", "128.896585");
+                pathInfo.put("rStY", "37.79519");
+
+                pathInfo.put("rV1Name", "초당순두부");
+                pathInfo.put("rV1X", "128.913453");
+                pathInfo.put("rV1Y", "37.78837");
+                tMapTapi.invokeRoute(pathInfo);
+            }
+        });
+
+
+
+
 
 
 //                try {
