@@ -28,10 +28,3 @@ for i in range(len(trip)):
                   icon=folium.Icon(color='red',icon='star')
                  ).add_to(m)
 m.save('map.html')
-
-
-# prod. 손향지
-
-
-
-
