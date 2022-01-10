@@ -26,7 +26,7 @@
 
 
 ## 2. 최종 보고서
-![최종 ppt](https://docs.google.com/presentation/d/1usL84kSkPu3Kp_KdLtacyLnpwtBhaHE9/edit?usp=sharing&ouid=101821659036197760390&rtpof=true&sd=true)
+[최종 ppt](https://docs.google.com/presentation/d/1usL84kSkPu3Kp_KdLtacyLnpwtBhaHE9/edit?usp=sharing&ouid=101821659036197760390&rtpof=true&sd=true)
 
 ## 3. 참여자
 * 박다원(팀장)
