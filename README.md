@@ -1,6 +1,6 @@
 # BE_E
 
-## 충전소 위치와 평균 이용률/ 이용시간에 따른 패턴 데이터를 분석하여 충전소에 따른 관광 경로 추천 시스템 제공
+### 충전소 위치와 평균 이용률/ 이용시간에 따른 패턴 데이터를 분석하여 충전소에 따른 관광 경로 추천 시스템 제공
 * tmap API 이용
 * 활용 데이터: 한국환경공단/한국환경공단/한국관광공사
   *한국전력공사*
@@ -26,7 +26,7 @@
 
 
 ## 2. 최종 보고서
-[최종 ppt](https://docs.google.com/presentation/d/1usL84kSkPu3Kp_KdLtacyLnpwtBhaHE9/edit?usp=sharing&ouid=101821659036197760390&rtpof=true&sd=true)
+[최종 ppt](https://drive.google.com/file/d/1hVxrtYycCj7SSwUdeQhW9oZImNp6lSgq/view?usp=sharing)
 
 ## 3. 참여자
 * 박다원(팀장)
